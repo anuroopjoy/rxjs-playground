@@ -1,12 +1,20 @@
 import { ajax } from 'rxjs/ajax';
-import { map, catchError, of, bindCallback, bindNodeCallback } from 'rxjs';
+import {
+  map,
+  catchError,
+  of,
+  bindCallback,
+  bindNodeCallback,
+  defer,
+  fromEvent,
+  interval,
+} from 'rxjs';
 
 export const creationOperators: Map<string, Function> = new Map([
   ['ajax', demoAjax],
   ['bindCallback', demoBindCallback],
   ['bindNodeCallback', demoBindNodeCallback],
-  // 'bindNodeCallback',
-  // 'defer',
+  ['defer', demoDefer],
   // 'empty',
   // 'from',
   // 'fromEvent',
@@ -40,11 +48,21 @@ function demoBindCallback() {
 }
 
 function sampleNodeCallback(callback: any) {
-  callback(null, 5, 'some string');
+  callback(null, 5, 'hello');
 }
 function demoBindNodeCallback() {
   const boundSomeFunction = bindNodeCallback(sampleNodeCallback);
   boundSomeFunction().subscribe((value) => {
-    console.log(value); // [5, "some string"]
+    console.log(value);
+  });
+}
+
+function demoDefer() {
+  const src$ = defer(() => {
+    return Math.random() > 0.5 ? fromEvent(document, 'click') : interval(1000);
+  });
+  src$.subscribe({
+    next: (value) => console.log(value),
+    error: (err) => console.log(err),
   });
 }
