@@ -10,6 +10,7 @@ import {
   interval,
   from,
   fromEventPattern,
+  range,
 } from 'rxjs';
 
 export const creationOperators: Map<string, Function> = new Map([
@@ -22,9 +23,8 @@ export const creationOperators: Map<string, Function> = new Map([
   ['fromEventPattern', demoFromEventPattern],
   // 'generate',
   ['interval', demoInterval],
-  // 'interval',
-  // 'of',
-  // 'range',
+  ['of', demoOf],
+  ['range', demoRange],
   // 'throwError',
   // 'timer',
   // 'iif',
@@ -97,6 +97,20 @@ function demoFromEventPattern() {
 }
 function demoInterval() {
   const src$ = interval(1000);
+  src$.subscribe({
+    next: (value) => console.log('value emitted', value),
+    error: (err) => console.log(err),
+  });
+}
+function demoOf() {
+  const src$ = of(1000, 2000, 40000);
+  src$.subscribe({
+    next: (value) => console.log('value emitted', value),
+    error: (err) => console.log(err),
+  });
+}
+function demoRange() {
+  const src$ = range(3, 10);
   src$.subscribe({
     next: (value) => console.log('value emitted', value),
     error: (err) => console.log(err),
