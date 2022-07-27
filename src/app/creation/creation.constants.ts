@@ -8,6 +8,7 @@ import {
   defer,
   fromEvent,
   interval,
+  from,
 } from 'rxjs';
 
 export const creationOperators: Map<string, Function> = new Map([
@@ -15,7 +16,7 @@ export const creationOperators: Map<string, Function> = new Map([
   ['bindCallback', demoBindCallback],
   ['bindNodeCallback', demoBindNodeCallback],
   ['defer', demoDefer],
-  // 'empty',
+  ['from', demoFrom],
   // 'from',
   // 'fromEvent',
   // 'fromEventPattern',
@@ -63,6 +64,13 @@ function demoDefer() {
   });
   src$.subscribe({
     next: (value) => console.log(value),
+    error: (err) => console.log(err),
+  });
+}
+function demoFrom() {
+  const src$ = from(Promise.resolve([100, 200, 3000]));
+  src$.subscribe({
+    next: (value) => console.log('value emitted', value),
     error: (err) => console.log(err),
   });
 }
