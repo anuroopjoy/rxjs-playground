@@ -5,6 +5,7 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
+import { Subscription } from 'rxjs';
 import { creationOperators } from './creation.constants';
 
 @Component({
@@ -14,12 +15,16 @@ import { creationOperators } from './creation.constants';
 })
 export class CreationComponent implements OnInit, OnChanges {
   @Input() operator!: string;
+  #subscription!: Subscription;
   constructor() {}
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['operator']) {
+      if (this.#subscription) {
+        this.#subscription.unsubscribe();
+      }
       const callback = creationOperators.get(this.operator);
       if (callback) {
-        callback();
+        this.#subscription = callback();
       }
     }
   }

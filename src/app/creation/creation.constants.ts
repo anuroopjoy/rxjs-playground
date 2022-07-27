@@ -11,6 +11,7 @@ import {
   from,
   fromEventPattern,
   range,
+  timer,
 } from 'rxjs';
 
 export const creationOperators: Map<string, Function> = new Map([
@@ -26,7 +27,7 @@ export const creationOperators: Map<string, Function> = new Map([
   ['of', demoOf],
   ['range', demoRange],
   // 'throwError',
-  // 'timer',
+  ['timer', demoTimer],
   // 'iif',
 ]);
 
@@ -35,7 +36,7 @@ function demoAjax() {
     url: 'https://catfact.ninja/fact',
     method: 'GET',
   });
-  obs$.subscribe({
+  return obs$.subscribe({
     next: (value) => console.log('value emitted', value),
     error: (err) => console.log(err),
   });
@@ -43,7 +44,7 @@ function demoAjax() {
 
 function demoBindCallback() {
   const callback$ = bindCallback(demoAjax)();
-  callback$.subscribe({
+  return callback$.subscribe({
     next: (value) => console.log('value emitted', value),
     error: (err) => console.log(err),
   });
@@ -54,7 +55,7 @@ function sampleNodeCallback(callback: any) {
 }
 function demoBindNodeCallback() {
   const boundSomeFunction = bindNodeCallback(sampleNodeCallback);
-  boundSomeFunction().subscribe((value) => {
+  return boundSomeFunction().subscribe((value) => {
     console.log('value emitted', value);
   });
 }
@@ -63,21 +64,21 @@ function demoDefer() {
   const src$ = defer(() => {
     return Math.random() > 0.5 ? fromEvent(document, 'click') : interval(1000);
   });
-  src$.subscribe({
+  return src$.subscribe({
     next: (value) => console.log('value emitted', value),
     error: (err) => console.log(err),
   });
 }
 function demoFrom() {
   const src$ = from(Promise.resolve([100, 200, 3000]));
-  src$.subscribe({
+  return src$.subscribe({
     next: (value) => console.log('value emitted', value),
     error: (err) => console.log(err),
   });
 }
 function demoFromEvent() {
   const src$ = fromEvent(document, 'click');
-  src$.subscribe({
+  return src$.subscribe({
     next: (value) => console.log('value emitted', value),
     error: (err) => console.log(err),
   });
@@ -90,28 +91,36 @@ function demoFromEventPattern() {
     document.removeEventListener('click', handler);
   };
   const src$ = fromEventPattern(addEventHandler, removeEventHandler);
-  src$.subscribe({
+  return src$.subscribe({
     next: (value) => console.log('value emitted', value),
     error: (err) => console.log(err),
   });
 }
 function demoInterval() {
   const src$ = interval(1000);
-  src$.subscribe({
+  return src$.subscribe({
     next: (value) => console.log('value emitted', value),
     error: (err) => console.log(err),
   });
 }
 function demoOf() {
   const src$ = of(1000, 2000, 40000);
-  src$.subscribe({
+  return src$.subscribe({
     next: (value) => console.log('value emitted', value),
     error: (err) => console.log(err),
   });
 }
 function demoRange() {
   const src$ = range(3, 10);
-  src$.subscribe({
+  return src$.subscribe({
+    next: (value) => console.log('value emitted', value),
+    error: (err) => console.log(err),
+  });
+}
+function demoTimer() {
+  // const src$ = timer(0, 1000);
+  const src$ = timer(1000);
+  return src$.subscribe({
     next: (value) => console.log('value emitted', value),
     error: (err) => console.log(err),
   });
