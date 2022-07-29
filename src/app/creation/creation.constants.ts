@@ -92,7 +92,7 @@ function demoThrowError() {
   });
 }
 function demoTimer() {
-  // const src$ = timer(0, 1000);
+  // return timer(0, 1000);
   return timer(1000);
 }
 function demoIif() {
