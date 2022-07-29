@@ -69,6 +69,14 @@ function demoFromEventPattern() {
   };
   return fromEventPattern(addEventHandler, removeEventHandler);
 }
+function demoGenerate() {
+  return generate({
+    initialState: 0,
+    condition: (x) => x < 5,
+    iterate: (x) => x + 1,
+    resultSelector: (x: number) => x,
+  });
+}
 function demoInterval() {
   return interval(1000);
 }
@@ -78,24 +86,16 @@ function demoOf() {
 function demoRange() {
   return range(3, 10);
 }
-function demoTimer() {
-  // const src$ = timer(0, 1000);
-  return timer(1000);
-}
 function demoThrowError() {
   return throwError(() => {
     return new Error('sample error');
   });
 }
+function demoTimer() {
+  // const src$ = timer(0, 1000);
+  return timer(1000);
+}
 function demoIif() {
   let isSuccess = true;
   return iif(() => isSuccess, of('success'), of('failure'));
-}
-function demoGenerate() {
-  return generate({
-    initialState: 0,
-    condition: (x) => x < 5,
-    iterate: (x) => x + 1,
-    resultSelector: (x: number) => x,
-  });
 }
