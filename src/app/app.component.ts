@@ -7,7 +7,7 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'rxjs-playground';
-  currentIndex = 13;
+  currentIndex = 0;
 
   items = [
     'ajax',

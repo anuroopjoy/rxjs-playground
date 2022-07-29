@@ -14,6 +14,7 @@ import {
   timer,
   throwError,
   iif,
+  generate,
 } from 'rxjs';
 
 export const creationOperators: Map<string, Function> = new Map([
@@ -24,7 +25,7 @@ export const creationOperators: Map<string, Function> = new Map([
   ['from', demoFrom],
   ['fromEvent', demoFromEvent],
   ['fromEventPattern', demoFromEventPattern],
-  // 'generate',
+  ['generate', demoGenerate],
   ['interval', demoInterval],
   ['of', demoOf],
   ['range', demoRange],
@@ -139,6 +140,18 @@ function demoThrowError() {
 function demoIif() {
   let isSuccess = true;
   const src$ = iif(() => isSuccess, of('success'), of('failure'));
+  return src$.subscribe({
+    next: (value) => console.log('value emitted', value),
+    error: (err) => console.log(err),
+  });
+}
+function demoGenerate() {
+  const src$ = generate({
+    initialState: 0,
+    condition: (x) => x < 5,
+    iterate: (x) => x + 1,
+    resultSelector: (x: number) => x,
+  });
   return src$.subscribe({
     next: (value) => console.log('value emitted', value),
     error: (err) => console.log(err),
