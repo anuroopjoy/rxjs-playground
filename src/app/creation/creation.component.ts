@@ -5,7 +5,7 @@ import {
   OnInit,
   SimpleChanges,
 } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { creationOperators } from './creation.constants';
 
 @Component({
@@ -16,15 +16,18 @@ import { creationOperators } from './creation.constants';
 export class CreationComponent implements OnInit, OnChanges {
   @Input() operator!: string;
   #subscription!: Subscription;
+  result$!: Observable<any>;
   constructor() {}
   ngOnChanges(changes: SimpleChanges): void {
     if (changes['operator']) {
       if (this.#subscription) {
         this.#subscription.unsubscribe();
       }
+      console.clear();
       const callback = creationOperators.get(this.operator);
       if (callback) {
-        this.#subscription = callback().subscribe({
+        this.result$ = callback();
+        this.#subscription = this.result$.subscribe({
           next: (value: any) => console.log('value emitted', value),
           error: (err: any) => console.log(err),
         });
