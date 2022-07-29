@@ -39,15 +39,14 @@ function demoAjax() {
   });
 }
 
-function demoBindCallback() {
-  return bindCallback(sampleNodeCallback)();
-}
-
-function sampleNodeCallback(callback: any) {
+function sampleCallback(callback: any) {
   callback(null, 5, 'hello');
 }
+function demoBindCallback() {
+  return bindCallback(sampleCallback)();
+}
 function demoBindNodeCallback() {
-  return bindNodeCallback(sampleNodeCallback)();
+  return bindNodeCallback(sampleCallback)();
 }
 
 function demoDefer() {
