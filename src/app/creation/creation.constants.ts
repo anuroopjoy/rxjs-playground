@@ -1,7 +1,5 @@
 import { ajax } from 'rxjs/ajax';
 import {
-  map,
-  catchError,
   of,
   bindCallback,
   bindNodeCallback,
@@ -35,56 +33,33 @@ export const creationOperators: Map<string, Function> = new Map([
 ]);
 
 function demoAjax() {
-  const obs$ = ajax({
+  return ajax({
     url: 'https://catfact.ninja/fact',
     method: 'GET',
-  });
-  return obs$.subscribe({
-    next: (value) => console.log('value emitted', value),
-    error: (err) => console.log(err),
   });
 }
 
 function demoBindCallback() {
-  const callback$ = bindCallback(demoAjax)();
-  return callback$.subscribe({
-    next: (value) => console.log('value emitted', value),
-    error: (err) => console.log(err),
-  });
+  return bindCallback(sampleNodeCallback)();
 }
 
 function sampleNodeCallback(callback: any) {
   callback(null, 5, 'hello');
 }
 function demoBindNodeCallback() {
-  const boundSomeFunction = bindNodeCallback(sampleNodeCallback);
-  return boundSomeFunction().subscribe((value) => {
-    console.log('value emitted', value);
-  });
+  return bindNodeCallback(sampleNodeCallback)();
 }
 
 function demoDefer() {
-  const src$ = defer(() => {
+  return defer(() => {
     return Math.random() > 0.5 ? fromEvent(document, 'click') : interval(1000);
-  });
-  return src$.subscribe({
-    next: (value) => console.log('value emitted', value),
-    error: (err) => console.log(err),
   });
 }
 function demoFrom() {
-  const src$ = from(Promise.resolve([100, 200, 3000]));
-  return src$.subscribe({
-    next: (value) => console.log('value emitted', value),
-    error: (err) => console.log(err),
-  });
+  return from(Promise.resolve([100, 200, 3000]));
 }
 function demoFromEvent() {
-  const src$ = fromEvent(document, 'click');
-  return src$.subscribe({
-    next: (value) => console.log('value emitted', value),
-    error: (err) => console.log(err),
-  });
+  return fromEvent(document, 'click');
 }
 function demoFromEventPattern() {
   const addEventHandler = (handler: any) => {
@@ -93,67 +68,35 @@ function demoFromEventPattern() {
   const removeEventHandler = (handler: any) => {
     document.removeEventListener('click', handler);
   };
-  const src$ = fromEventPattern(addEventHandler, removeEventHandler);
-  return src$.subscribe({
-    next: (value) => console.log('value emitted', value),
-    error: (err) => console.log(err),
-  });
+  return fromEventPattern(addEventHandler, removeEventHandler);
 }
 function demoInterval() {
-  const src$ = interval(1000);
-  return src$.subscribe({
-    next: (value) => console.log('value emitted', value),
-    error: (err) => console.log(err),
-  });
+  return interval(1000);
 }
 function demoOf() {
-  const src$ = of(1000, 2000, 40000);
-  return src$.subscribe({
-    next: (value) => console.log('value emitted', value),
-    error: (err) => console.log(err),
-  });
+  return of(1000, 2000, 40000);
 }
 function demoRange() {
-  const src$ = range(3, 10);
-  return src$.subscribe({
-    next: (value) => console.log('value emitted', value),
-    error: (err) => console.log(err),
-  });
+  return range(3, 10);
 }
 function demoTimer() {
   // const src$ = timer(0, 1000);
-  const src$ = timer(1000);
-  return src$.subscribe({
-    next: (value) => console.log('value emitted', value),
-    error: (err) => console.log(err),
-  });
+  return timer(1000);
 }
 function demoThrowError() {
-  const src$ = throwError(() => {
+  return throwError(() => {
     return new Error('sample error');
-  });
-  return src$.subscribe({
-    next: (value) => console.log('value emitted', value),
-    error: (err) => console.log(err),
   });
 }
 function demoIif() {
   let isSuccess = true;
-  const src$ = iif(() => isSuccess, of('success'), of('failure'));
-  return src$.subscribe({
-    next: (value) => console.log('value emitted', value),
-    error: (err) => console.log(err),
-  });
+  return iif(() => isSuccess, of('success'), of('failure'));
 }
 function demoGenerate() {
-  const src$ = generate({
+  return generate({
     initialState: 0,
     condition: (x) => x < 5,
     iterate: (x) => x + 1,
     resultSelector: (x: number) => x,
-  });
-  return src$.subscribe({
-    next: (value) => console.log('value emitted', value),
-    error: (err) => console.log(err),
   });
 }

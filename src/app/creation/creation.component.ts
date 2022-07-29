@@ -24,7 +24,10 @@ export class CreationComponent implements OnInit, OnChanges {
       }
       const callback = creationOperators.get(this.operator);
       if (callback) {
-        this.#subscription = callback();
+        this.#subscription = callback().subscribe({
+          next: (value: any) => console.log('value emitted', value),
+          error: (err: any) => console.log(err),
+        });
       }
     }
   }
