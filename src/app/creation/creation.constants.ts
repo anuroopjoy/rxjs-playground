@@ -12,6 +12,8 @@ import {
   fromEventPattern,
   range,
   timer,
+  throwError,
+  iif,
 } from 'rxjs';
 
 export const creationOperators: Map<string, Function> = new Map([
@@ -26,9 +28,9 @@ export const creationOperators: Map<string, Function> = new Map([
   ['interval', demoInterval],
   ['of', demoOf],
   ['range', demoRange],
-  // 'throwError',
+  ['throwError', demoThrowError],
   ['timer', demoTimer],
-  // 'iif',
+  ['iif', demoIif],
 ]);
 
 function demoAjax() {
@@ -120,6 +122,23 @@ function demoRange() {
 function demoTimer() {
   // const src$ = timer(0, 1000);
   const src$ = timer(1000);
+  return src$.subscribe({
+    next: (value) => console.log('value emitted', value),
+    error: (err) => console.log(err),
+  });
+}
+function demoThrowError() {
+  const src$ = throwError(() => {
+    return new Error('sample error');
+  });
+  return src$.subscribe({
+    next: (value) => console.log('value emitted', value),
+    error: (err) => console.log(err),
+  });
+}
+function demoIif() {
+  let isSuccess = true;
+  const src$ = iif(() => isSuccess, of('success'), of('failure'));
   return src$.subscribe({
     next: (value) => console.log('value emitted', value),
     error: (err) => console.log(err),
