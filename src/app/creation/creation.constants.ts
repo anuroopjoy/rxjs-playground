@@ -96,6 +96,6 @@ function demoTimer() {
   return timer(1000);
 }
 function demoIif() {
-  let isSuccess = true;
+  let isSuccess = false;
   return iif(() => isSuccess, of('success'), of('failure'));
 }

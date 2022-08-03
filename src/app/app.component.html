@@ -1,3 +1,13 @@
+<div class="header">
+  <div class="header-left">
+    <a
+      [ngClass]="{ active: i === currentCategoryIndex }"
+      *ngFor="let category of categories; trackBy: trackByFn; let i = index"
+      (click)="selectCategory(i)"
+      >Creation</a
+    >
+  </div>
+</div>
 <div class="sidenav">
   <a
     [ngClass]="{ active: i === currentIndex }"
