@@ -4,7 +4,7 @@
       [ngClass]="{ active: i === currentCategoryIndex }"
       *ngFor="let category of categories; trackBy: trackByFn; let i = index"
       (click)="selectCategory(i)"
-      >Creation</a
+      >{{ category.text }}</a
     >
   </div>
 </div>

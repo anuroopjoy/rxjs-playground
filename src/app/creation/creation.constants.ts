@@ -13,6 +13,13 @@ import {
   throwError,
   iif,
   generate,
+  combineLatest,
+  concat,
+  forkJoin,
+  take,
+  merge,
+  partition,
+  first,
 } from 'rxjs';
 
 export const creationOperators: Map<string, Function> = new Map([
@@ -30,6 +37,11 @@ export const creationOperators: Map<string, Function> = new Map([
   ['throwError', demoThrowError],
   ['timer', demoTimer],
   ['iif', demoIif],
+  ['combineLatest', demoCombineLatest],
+  ['concat', demoConcat],
+  ['forkJoin', demoForkJoin],
+  ['merge', demoMerge],
+  ['partition', demoPartition],
 ]);
 
 function demoAjax() {
@@ -98,4 +110,39 @@ function demoTimer() {
 function demoIif() {
   let isSuccess = false;
   return iif(() => isSuccess, of('success'), of('failure'));
+}
+function demoCombineLatest() {
+  // const src1$ = range(0, 10);
+  // const src2$ = range(10, 10);
+  const src1$ = timer(0, 1000).pipe(take(5));
+  const src2$ = interval(1000).pipe(take(5));
+  // return combineLatest([src1$, src2$]);
+  return combineLatest({ src1$, src2$ });
+}
+function demoConcat() {
+  const src1$ = timer(0, 1000).pipe(take(5));
+  const src2$ = interval(1000).pipe(take(5));
+  return concat(src1$, src2$);
+}
+function demoForkJoin() {
+  const src1$ = timer(0, 1000).pipe(take(5));
+  const src2$ = interval(1000).pipe(take(5));
+  // const src1$ = range(0, 10);
+  // const src2$ = range(10, 10);
+  // return forkJoin([src1$, src2$]);
+  return forkJoin({ src1$, src2$ });
+}
+function demoMerge() {
+  const src1$ = timer(0, 1000).pipe(take(5));
+  const src2$ = interval(1000).pipe(take(5));
+  return merge(src1$, src2$);
+}
+function demoPartition() {
+  const src1$ = timer(0, 1000).pipe(take(5));
+  const [matches$, rejects$] = partition(src1$, (x: number) => x % 2 === 0);
+  rejects$.subscribe({
+    next: (value: any) => console.log('Rejected value emitted', value),
+    error: (err: any) => console.log(err),
+  });
+  return matches$;
 }
