@@ -19,7 +19,8 @@ import {
   take,
   merge,
   partition,
-  first,
+  race,
+  zip,
 } from 'rxjs';
 
 export const creationOperators: Map<string, Function> = new Map([
@@ -42,6 +43,8 @@ export const creationOperators: Map<string, Function> = new Map([
   ['forkJoin', demoForkJoin],
   ['merge', demoMerge],
   ['partition', demoPartition],
+  ['race', demoRace],
+  ['zip', demoZip],
 ]);
 
 function demoAjax() {
@@ -145,4 +148,19 @@ function demoPartition() {
     error: (err: any) => console.log(err),
   });
   return matches$;
+}
+
+function demoRace() {
+  const src1$ = timer(0, 1000).pipe(take(5));
+  const src2$ = interval(1000).pipe(take(5));
+  // const src1$ = range(0, 10);
+  // const src2$ = range(10, 10);
+  return race([src1$, src2$]);
+}
+function demoZip() {
+  // const src1$ = timer(0, 1000).pipe(take(5));
+  // const src2$ = interval(1000).pipe(take(5));
+  const src1$ = range(0, 10);
+  const src2$ = range(10, 10);
+  return zip([src1$, src2$]);
 }
