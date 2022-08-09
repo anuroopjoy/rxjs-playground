@@ -12,6 +12,7 @@ export class AppComponent {
   categories = [
     { text: 'Creation', value: 'creation' },
     { text: 'Join Creation', value: 'joincreation' },
+    { text: 'Transformation', value: 'transformation' },
   ];
   categoryItems: Record<string, string[]> = {
     creation: [
@@ -38,6 +39,29 @@ export class AppComponent {
       'partition',
       'race',
       'zip',
+    ],
+    transformation: [
+      'buffer',
+      'bufferCount',
+      'bufferTime',
+      'bufferToggle',
+      'bufferWhen',
+      'map',
+      'concatMap',
+      'mergeMap',
+      'switchMap',
+      'exhaustMap',
+      'expand',
+      'groupBy',
+      'pairwise',
+      'scan',
+      'mergeScan',
+      'switchScan',
+      'window',
+      'windowCount',
+      'windowTime',
+      'windowToggle',
+      'windowWhen',
     ],
   };
   items: string[] = this.categoryItems[this.categories[0].value];

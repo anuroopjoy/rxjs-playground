@@ -6,7 +6,7 @@ import {
   SimpleChanges,
 } from '@angular/core';
 import { Observable, Subscription } from 'rxjs';
-import { creationOperators } from './creation.constants';
+import { operatorMap } from './operators.constants';
 
 @Component({
   selector: 'app-creation',
@@ -24,7 +24,7 @@ export class CreationComponent implements OnInit, OnChanges {
         this.#subscription.unsubscribe();
       }
       console.clear();
-      const callback = creationOperators.get(this.operator);
+      const callback = operatorMap.get(this.operator);
       if (callback) {
         this.result$ = callback();
         this.#subscription = this.result$.subscribe({

@@ -14,61 +14,37 @@ import {
   iif,
   generate,
 } from 'rxjs';
-import { demoCombineLatest, demoConcat, demoForkJoin, demoMerge, demoPartition, demoRace, demoZip } from './join-creation.constants';
 
-export const creationOperators: Map<string, Function> = new Map([
-  ['ajax', demoAjax],
-  ['bindCallback', demoBindCallback],
-  ['bindNodeCallback', demoBindNodeCallback],
-  ['defer', demoDefer],
-  ['from', demoFrom],
-  ['fromEvent', demoFromEvent],
-  ['fromEventPattern', demoFromEventPattern],
-  ['generate', demoGenerate],
-  ['interval', demoInterval],
-  ['of', demoOf],
-  ['range', demoRange],
-  ['throwError', demoThrowError],
-  ['timer', demoTimer],
-  ['iif', demoIif],
-  ['combineLatest', demoCombineLatest],
-  ['concat', demoConcat],
-  ['forkJoin', demoForkJoin],
-  ['merge', demoMerge],
-  ['partition', demoPartition],
-  ['race', demoRace],
-  ['zip', demoZip],
-]);
 
-function demoAjax() {
+export function demoAjax() {
   return ajax({
     url: 'https://catfact.ninja/fact',
     method: 'GET',
   });
 }
 
-function sampleCallback(callback: any) {
+export function sampleCallback(callback: any) {
   callback(null, 5, 'hello');
 }
-function demoBindCallback() {
+export function demoBindCallback() {
   return bindCallback(sampleCallback)();
 }
-function demoBindNodeCallback() {
+export function demoBindNodeCallback() {
   return bindNodeCallback(sampleCallback)();
 }
 
-function demoDefer() {
+export function demoDefer() {
   return defer(() => {
     return Math.random() > 0.5 ? fromEvent(document, 'click') : interval(1000);
   });
 }
-function demoFrom() {
+export function demoFrom() {
   return from(Promise.resolve([100, 200, 3000]));
 }
-function demoFromEvent() {
+export function demoFromEvent() {
   return fromEvent(document, 'click');
 }
-function demoFromEventPattern() {
+export function demoFromEventPattern() {
   const addEventHandler = (handler: any) => {
     document.addEventListener('click', handler);
   };
@@ -77,7 +53,7 @@ function demoFromEventPattern() {
   };
   return fromEventPattern(addEventHandler, removeEventHandler);
 }
-function demoGenerate() {
+export function demoGenerate() {
   return generate({
     initialState: 0,
     condition: (x) => x < 5,
@@ -85,25 +61,25 @@ function demoGenerate() {
     resultSelector: (x: number) => x,
   });
 }
-function demoInterval() {
+export function demoInterval() {
   return interval(1000);
 }
-function demoOf() {
+export function demoOf() {
   return of(1000, 2000, 40000);
 }
-function demoRange() {
+export function demoRange() {
   return range(3, 10);
 }
-function demoThrowError() {
+export function demoThrowError() {
   return throwError(() => {
     return new Error('sample error');
   });
 }
-function demoTimer() {
+export function demoTimer() {
   // return timer(0, 1000);
   return timer(1000);
 }
-function demoIif() {
+export function demoIif() {
   let isSuccess = false;
   return iif(() => isSuccess, of('success'), of('failure'));
 }
