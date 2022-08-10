@@ -40,6 +40,11 @@ import {
   demoScan,
   demoMergeScan,
   demoSwitchScan,
+  demoWindow,
+  demoWindowCount,
+  demoWindowTime,
+  demoWindowToggle,
+  demoWindowWhen,
 } from './transformation.constants';
 
 export const operatorMap: Map<string, Function> = new Map([
@@ -80,4 +85,9 @@ export const operatorMap: Map<string, Function> = new Map([
   ['scan', demoScan],
   ['mergeScan', demoMergeScan],
   ['switchScan', demoSwitchScan],
+  ['window', demoWindow],
+  ['windowCount', demoWindowCount],
+  ['windowTime', demoWindowTime],
+  ['windowToggle', demoWindowToggle],
+  ['windowWhen', demoWindowWhen],
 ]);

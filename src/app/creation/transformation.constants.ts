@@ -23,6 +23,11 @@ import {
   switchScan,
   take,
   timer,
+  window,
+  windowCount,
+  windowTime,
+  windowToggle,
+  windowWhen,
 } from 'rxjs';
 
 export function demoBuffer() {
@@ -120,5 +125,47 @@ export function demoSwitchScan() {
   return src1$.pipe(
     map(() => 1),
     switchScan((acc, val) => interval((acc + val) * 1000).pipe(take(10)), 0)
+  );
+}
+export function demoWindow() {
+  const src1$ = fromEvent(document, 'click');
+  const src2$ = interval(1000);
+  return src2$.pipe(
+    window(src1$),
+    map((val$) => val$.pipe(take(5))),
+    mergeAll()
+  );
+}
+export function demoWindowCount() {
+  const src1$ = interval(1000);
+  return src1$.pipe(
+    windowCount(3),
+    map((val$) => val$.pipe(take(1))),
+    mergeAll()
+  );
+}
+export function demoWindowTime() {
+  const src1$ = interval(1000);
+  return src1$.pipe(
+    windowTime(3000),
+    map((val$) => val$.pipe(take(1))),
+    mergeAll()
+  );
+}
+export function demoWindowToggle() {
+  const openings = fromEvent(document, 'click');
+  const src1$ = interval(1000);
+  return src1$.pipe(
+    windowToggle(openings, () => timer(3000)),
+    mergeAll()
+  );
+}
+export function demoWindowWhen() {
+  const openings = fromEvent(document, 'click');
+  const src1$ = interval(1000);
+  return src1$.pipe(
+    windowWhen(() => openings),
+    map(win => win.pipe(take(2))),
+    mergeAll()
   );
 }
