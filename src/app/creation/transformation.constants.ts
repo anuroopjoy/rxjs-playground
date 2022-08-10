@@ -14,10 +14,13 @@ import {
   map,
   mergeAll,
   mergeMap,
+  mergeScan,
   of,
   pairwise,
   reduce,
+  scan,
   switchMap,
+  switchScan,
   take,
   timer,
 } from 'rxjs';
@@ -95,4 +98,27 @@ export function demoGroupBy() {
 export function demoPairwise() {
   const src1$ = interval(1000);
   return src1$.pipe(pairwise());
+}
+
+export function demoScan() {
+  const src1$ = fromEvent(document, 'click');
+  return src1$.pipe(
+    map(() => 1),
+    scan((acc, val) => acc + val)
+  );
+}
+
+export function demoMergeScan() {
+  const src1$ = fromEvent(document, 'click');
+  return src1$.pipe(
+    map(() => 1),
+    mergeScan((acc, val) => interval((acc + val) * 1000).pipe(take(10)), 0)
+  );
+}
+export function demoSwitchScan() {
+  const src1$ = fromEvent(document, 'click');
+  return src1$.pipe(
+    map(() => 1),
+    switchScan((acc, val) => interval((acc + val) * 1000).pipe(take(10)), 0)
+  );
 }

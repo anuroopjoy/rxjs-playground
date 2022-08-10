@@ -37,6 +37,9 @@ import {
   demoExpand,
   demoGroupBy,
   demoPairwise,
+  demoScan,
+  demoMergeScan,
+  demoSwitchScan,
 } from './transformation.constants';
 
 export const operatorMap: Map<string, Function> = new Map([
@@ -74,4 +77,7 @@ export const operatorMap: Map<string, Function> = new Map([
   ['expand', demoExpand],
   ['groupBy', demoGroupBy],
   ['pairwise', demoPairwise],
+  ['scan', demoScan],
+  ['mergeScan', demoMergeScan],
+  ['switchScan', demoSwitchScan],
 ]);
