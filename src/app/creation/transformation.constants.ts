@@ -117,14 +117,14 @@ export function demoMergeScan() {
   const src1$ = fromEvent(document, 'click');
   return src1$.pipe(
     map(() => 1),
-    mergeScan((acc, val) => interval((acc + val) * 1000).pipe(take(10)), 0)
+    mergeScan((acc, val) => interval((acc + val) * 300).pipe(take(5)), 0)
   );
 }
 export function demoSwitchScan() {
   const src1$ = fromEvent(document, 'click');
   return src1$.pipe(
     map(() => 1),
-    switchScan((acc, val) => interval((acc + val) * 1000).pipe(take(10)), 0)
+    switchScan((acc, val) => interval((acc + val) * 300).pipe(take(5)), 0)
   );
 }
 export function demoWindow() {
@@ -132,7 +132,7 @@ export function demoWindow() {
   const src2$ = interval(1000);
   return src2$.pipe(
     window(src1$),
-    map((val$) => val$.pipe(take(5))),
+    map((val$) => val$.pipe(take(2))),
     mergeAll()
   );
 }
@@ -140,7 +140,7 @@ export function demoWindowCount() {
   const src1$ = interval(1000);
   return src1$.pipe(
     windowCount(3),
-    map((val$) => val$.pipe(take(1))),
+    map((val$) => val$.pipe(take(2))),
     mergeAll()
   );
 }
@@ -148,7 +148,7 @@ export function demoWindowTime() {
   const src1$ = interval(1000);
   return src1$.pipe(
     windowTime(3000),
-    map((val$) => val$.pipe(take(1))),
+    map((val$) => val$.pipe(take(2))),
     mergeAll()
   );
 }
@@ -165,7 +165,7 @@ export function demoWindowWhen() {
   const src1$ = interval(1000);
   return src1$.pipe(
     windowWhen(() => openings),
-    map(win => win.pipe(take(2))),
+    map((win) => win.pipe(take(2))),
     mergeAll()
   );
 }
