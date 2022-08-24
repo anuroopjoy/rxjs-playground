@@ -71,6 +71,14 @@ export class AppComponent {
       'last',
       'single',
       'ignoreElements',
+      'take',
+      'takeLast',
+      'takeUntil',
+      'takeWhile',
+      'skip',
+      'skipLast',
+      'skipUntil',
+      'skipWhile',
     ],
   };
   items: string[] = this.categoryItems[this.categories[0].value];
