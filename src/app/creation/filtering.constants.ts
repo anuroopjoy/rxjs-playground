@@ -1,4 +1,7 @@
 import {
+  distinct,
+  distinctUntilChanged,
+  distinctUntilKeyChanged,
   elementAt,
   filter,
   first,
@@ -7,6 +10,7 @@ import {
   ignoreElements,
   interval,
   last,
+  of,
   single,
   skip,
   skipLast,
@@ -79,4 +83,45 @@ export function demoSkipUntil() {
 export function demoSkipWhile() {
   const src1$ = interval(1000);
   return src1$.pipe(skipWhile((val) => val <= 5));
+}
+export function demoDistinct() {
+  // const src1$ = from([1, 2, 2, 3, 4, 5, 4]);
+  const src1$ = of(
+    { name: 'a', age: 1 },
+    { name: 'b', age: 2 },
+    { name: 'b', age: 3 },
+    { name: 'a', age: 4 }
+  );
+  // return src1$.pipe(distinct());
+  return src1$.pipe(distinct(({ name }) => name));
+}
+export function demoDistinctUntilChanged() {
+  // const src1$ = from([1, 2, 2, 3, 4, 5, 4]);
+  const src1$ = of(
+    { name: 'a', age: 1 },
+    { name: 'b', age: 2 },
+    { name: 'b', age: 3 },
+    { name: 'a', age: 4 }
+  );
+  // return src1$.pipe(distinctUntilChanged());
+  return src1$.pipe(
+    distinctUntilChanged((prev, curr) => {
+      return prev.name === curr.name;
+    })
+  );
+}
+export function demoDistinctUntilKeyChanged() {
+  const src1$ = of(
+    { name: 'a', age: 1 },
+    { name: 'b', age: 2 },
+    { name: 'b', age: 3 },
+    { name: 'ab', age: 4 },
+    { name: 'aa', age: 4 }
+  );
+  return src1$.pipe(
+    distinctUntilKeyChanged('name', (prev, curr) => {
+      return prev.substring(0, 1) === curr.substring(0, 1);
+    })
+  );
+  // return src1$.pipe(distinctUntilKeyChanged('name'));
 }

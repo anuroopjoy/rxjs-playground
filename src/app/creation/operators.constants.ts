@@ -14,7 +14,7 @@ import {
   demoTimer,
   demoIif,
 } from './creation.constants';
-import { demoElementAt, demoFilter, demoFirst, demoIgnoreElements, demoLast, demoSingle, demoSkip, demoSkipLast, demoSkipUntil, demoSkipWhile, demoTake, demoTakeLast, demoTakeUntil, demoTakeWhile } from './filtering.constants';
+import { demoDistinct, demoDistinctUntilChanged, demoDistinctUntilKeyChanged, demoElementAt, demoFilter, demoFirst, demoIgnoreElements, demoLast, demoSingle, demoSkip, demoSkipLast, demoSkipUntil, demoSkipWhile, demoTake, demoTakeLast, demoTakeUntil, demoTakeWhile } from './filtering.constants';
 import {
   demoCombineLatest,
   demoConcat,
@@ -105,4 +105,7 @@ export const operatorMap: Map<string, Function> = new Map([
   ['skipLast', demoSkipLast],
   ['skipUntil', demoSkipUntil],
   ['skipWhile', demoSkipWhile],
+  ['distinct', demoDistinct],
+  ['distinctUntilChanged', demoDistinctUntilChanged],
+  ['distinctUntilKeyChanged', demoDistinctUntilKeyChanged],
 ]);

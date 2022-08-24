@@ -79,6 +79,9 @@ export class AppComponent {
       'skipLast',
       'skipUntil',
       'skipWhile',
+      'distinct',
+      'distinctUntilChanged',
+      'distinctUntilKeyChanged',
     ],
   };
   items: string[] = this.categoryItems[this.categories[0].value];
