@@ -14,7 +14,7 @@ import {
   demoTimer,
   demoIif,
 } from './creation.constants';
-import { demoDistinct, demoDistinctUntilChanged, demoDistinctUntilKeyChanged, demoElementAt, demoFilter, demoFirst, demoIgnoreElements, demoLast, demoSingle, demoSkip, demoSkipLast, demoSkipUntil, demoSkipWhile, demoTake, demoTakeLast, demoTakeUntil, demoTakeWhile } from './filtering.constants';
+import { demoAudit, demoAuditTime, demoDebounce, demoDebounceTime, demoDistinct, demoDistinctUntilChanged, demoDistinctUntilKeyChanged, demoElementAt, demoFilter, demoFirst, demoIgnoreElements, demoLast, demoSample, demoSampleTime, demoSingle, demoSkip, demoSkipLast, demoSkipUntil, demoSkipWhile, demoTake, demoTakeLast, demoTakeUntil, demoTakeWhile, demoThrottle, demoThrottleTime } from './filtering.constants';
 import {
   demoCombineLatest,
   demoConcat,
@@ -108,4 +108,12 @@ export const operatorMap: Map<string, Function> = new Map([
   ['distinct', demoDistinct],
   ['distinctUntilChanged', demoDistinctUntilChanged],
   ['distinctUntilKeyChanged', demoDistinctUntilKeyChanged],
+  ['audit', demoAudit],
+  ['auditTime', demoAuditTime],
+  ['debounce', demoDebounce],
+  ['debounceTime', demoDebounceTime],
+  ['sample', demoSample],
+  ['sampleTime', demoSampleTime],
+  ['throttle', demoThrottle],
+  ['throttleTime', demoThrottleTime],
 ]);

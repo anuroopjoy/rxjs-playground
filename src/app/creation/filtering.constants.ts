@@ -1,4 +1,8 @@
 import {
+  audit,
+  auditTime,
+  debounce,
+  debounceTime,
   distinct,
   distinctUntilChanged,
   distinctUntilKeyChanged,
@@ -10,7 +14,11 @@ import {
   ignoreElements,
   interval,
   last,
+  map,
   of,
+  sample,
+  sampleTime,
+  scan,
   single,
   skip,
   skipLast,
@@ -20,6 +28,9 @@ import {
   takeLast,
   takeUntil,
   takeWhile,
+  tap,
+  throttle,
+  throttleTime,
   timer,
 } from 'rxjs';
 
@@ -124,4 +135,42 @@ export function demoDistinctUntilKeyChanged() {
     })
   );
   // return src1$.pipe(distinctUntilKeyChanged('name'));
+}
+
+export function demoAudit() {
+  const src1$ = fromEvent(document, 'click');
+  return src1$.pipe(audit(() => interval(3000)));
+}
+
+export function demoAuditTime() {
+  const src1$ = fromEvent(document, 'click');
+  return src1$.pipe(auditTime(3000));
+}
+export function demoDebounce() {
+  const src1$ = fromEvent(document, 'click');
+  return src1$.pipe(debounce(() => interval(3000)));
+}
+
+export function demoDebounceTime() {
+  const src1$ = fromEvent(document, 'click');
+  return src1$.pipe(debounceTime(3000));
+}
+export function demoSample() {
+  const src1$ = fromEvent(document, 'click');
+  const src2$ = interval(3000);
+  return src2$.pipe(sample(src1$));
+}
+
+export function demoSampleTime() {
+  const src1$ = fromEvent(document, 'click');
+  return src1$.pipe(sampleTime(3000));
+}
+export function demoThrottle() {
+  const src1$ = fromEvent(document, 'click');
+  return src1$.pipe(throttle(() => interval(3000)));
+}
+
+export function demoThrottleTime() {
+  const src1$ = fromEvent(document, 'click');
+  return src1$.pipe(throttleTime(3000));
 }

@@ -82,6 +82,14 @@ export class AppComponent {
       'distinct',
       'distinctUntilChanged',
       'distinctUntilKeyChanged',
+      'audit',
+      'auditTime',
+      'debounce',
+      'debounceTime',
+      'sample',
+      'sampleTime',
+      'throttle',
+      'throttleTime',
     ],
   };
   items: string[] = this.categoryItems[this.categories[0].value];
