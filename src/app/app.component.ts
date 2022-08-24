@@ -13,6 +13,7 @@ export class AppComponent {
     { text: 'Creation', value: 'creation' },
     { text: 'Join Creation', value: 'joincreation' },
     { text: 'Transformation', value: 'transformation' },
+    { text: 'Filtering', value: 'filtering' },
   ];
   categoryItems: Record<string, string[]> = {
     creation: [
@@ -62,6 +63,14 @@ export class AppComponent {
       'windowTime',
       'windowToggle',
       'windowWhen',
+    ],
+    filtering: [
+      'filter',
+      'elementAt',
+      'first',
+      'last',
+      'single',
+      'ignoreElements',
     ],
   };
   items: string[] = this.categoryItems[this.categories[0].value];

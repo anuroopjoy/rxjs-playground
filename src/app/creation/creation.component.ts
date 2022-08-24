@@ -29,6 +29,7 @@ export class CreationComponent implements OnInit, OnChanges {
         this.result$ = callback();
         this.#subscription = this.result$.subscribe({
           next: (value: any) => console.log('value emitted', value),
+          complete: () => console.log('completed'),
           error: (err: any) => console.log(err),
         });
       }

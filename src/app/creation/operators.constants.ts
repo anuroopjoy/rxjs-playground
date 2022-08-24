@@ -14,6 +14,7 @@ import {
   demoTimer,
   demoIif,
 } from './creation.constants';
+import { demoElementAt, demoFilter, demoFirst, demoIgnoreElements, demoLast, demoSingle } from './filtering.constants';
 import {
   demoCombineLatest,
   demoConcat,
@@ -90,4 +91,10 @@ export const operatorMap: Map<string, Function> = new Map([
   ['windowTime', demoWindowTime],
   ['windowToggle', demoWindowToggle],
   ['windowWhen', demoWindowWhen],
+  ['filter', demoFilter],
+  ['elementAt', demoElementAt],
+  ['first', demoFirst],
+  ['last', demoLast],
+  ['single', demoSingle],
+  ['ignoreElements', demoIgnoreElements],
 ]);
